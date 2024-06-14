@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <title>Rolik musobaqasi</title>
+    <style>
+    h1{
+    font-size: 44px;
+    }
+    .btn-primary{
+    font-size: 44px;
+    }
+        body{
+        margin-top: 300px;
+        }
+    </style>
 </head>
 <body>
 <center>
@@ -17,7 +28,7 @@
 <!--    <button type="submit" class="btn btn-primary">Ro'yhatdan o'tish</button>-->
 <br>
 
-    <a href="{% url 'signup' %}" class="btn btn-primary" >Ro'yxatdan o'tish</a>
+    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg" >Ro'yxatdan o'tish</a>
     {% block content %}
     {% endblock %}
   </main>
