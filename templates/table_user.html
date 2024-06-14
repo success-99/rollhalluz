@@ -17,10 +17,13 @@
 <body>
 <div class="container">
     <h1>Ro'yhatdan o'tganlar!!!</h1><br>
-     {% for e in users %}
-    <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}.</h5><hr>
 
-        {% endfor %}
+     {% for e in users %}
+    <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}.</h5>
+    <a class="btn btn-danger btn-sm" href="{% url 'delete-user' e.id %}" onclick="return confirm('Ishonchingiz komilmi?')"
+><span class="glyphicon glyphicon-trash">o'chirish</span></a><hr>
+
+    {% endfor %}
 
     <a href="/" class="btn btn-primary">Ortga qaytish</a>
 </div>

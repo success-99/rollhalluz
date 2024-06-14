@@ -1,10 +1,12 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseForbidden
-from django.shortcuts import render, redirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import user_passes_test
+from django.urls import reverse
+from django.contrib import messages
 
 
 def home(request):
@@ -80,3 +82,14 @@ def table_user(request):
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
     users = CustomUser.objects.filter(is_staff=False)
     return render(request, 'table_user.html', {'users': users})
+
+
+def delete_user(request, user_id):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
+
+    user = get_object_or_404(CustomUser, id=user_id)
+    user.delete()
+    messages.success(request, f"Foydalanuvchi {user.full_name} muvaffaqiyatli o'chirildi.")
+
+    return HttpResponseRedirect(reverse('table-users'))

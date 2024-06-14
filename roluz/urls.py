@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from users.views import home, signup_view, success, table_user, login_admin
+from users.views import home, signup_view, success, table_user, login_admin, delete_user
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('success/', success, name='success'),
     path('list/', table_user, name='table-users'),
     path('javohir/', login_admin, name='login-admin'),
+    path('users/delete/<int:user_id>/', delete_user, name='delete-user'),
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
