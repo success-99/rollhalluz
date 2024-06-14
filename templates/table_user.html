@@ -7,16 +7,22 @@
 
     <title>Success</title>
 </head>
+<style>
+    .container{
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+</style>
 
 <body>
-<center>
-<h1>Ro'yhatdan o'tganlar!!!</h1><br>
+<div class="container">
+    <h1>Ro'yhatdan o'tganlar!!!</h1><br>
      {% for e in users %}
-    <h5>Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}.</h5><hr>
+    <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}.</h5><hr>
 
         {% endfor %}
 
     <a href="/" class="btn btn-primary">Ortga qaytish</a>
-</center>
+</div>
 </body>
 </html>

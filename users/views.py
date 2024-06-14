@@ -78,5 +78,5 @@ def is_staff_user(user):
 def table_user(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
-    users = CustomUser.objects.all()
+    users = CustomUser.objects.filter(is_staff=False)
     return render(request, 'table_user.html', {'users': users})
