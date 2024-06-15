@@ -35,13 +35,13 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = [
-        ("F", 'Female'),
-        ("M", 'Male'),
+        ("o'g'il bola", "o'g'il bola"),
+        ("qiz bola", "qiz bola"),
     ]
     full_name = models.CharField(max_length=255, unique=True)
     birth_day = models.IntegerField()
     phone = models.CharField(max_length=9, unique=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(choices=GENDER_CHOICES)
     address = models.CharField(max_length=255)
 
     is_active = models.BooleanField(default=True)

@@ -8,10 +8,9 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.Form):
-
     GENDER_CHOICES = [
-        ("F", "o'g'il bola"),
-        ("M", 'qiz bola'),
+        ("o'g'il bola", "o'g'il bola"),
+        ("qiz bola", "qiz bola"),
     ]
 
     full_name = forms.CharField(max_length=255, required=True)
@@ -19,7 +18,6 @@ class SignupForm(forms.Form):
     phone = forms.CharField(max_length=9, required=True)
     gender = forms.ChoiceField(choices=GENDER_CHOICES, required=True)
     address = forms.CharField(max_length=255, required=True)
-
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
@@ -32,4 +30,3 @@ class SignupForm(forms.Form):
         if CustomUser.objects.filter(full_name=full_name).exists():
             raise forms.ValidationError("A user with that full name already exists.")
         return full_name
-

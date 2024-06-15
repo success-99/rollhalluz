@@ -93,3 +93,11 @@ def delete_user(request, user_id):
     messages.success(request, f"Foydalanuvchi {user.full_name} muvaffaqiyatli o'chirildi.")
 
     return HttpResponseRedirect(reverse('table-users'))
+
+
+def user_detail(request, user_id):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
+
+    user = get_object_or_404(CustomUser, id=user_id)
+    return render(request, 'user_detail.html', {'user': user})
