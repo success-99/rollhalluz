@@ -19,7 +19,7 @@
     <h1>Ro'yhatdan o'tganlar!!!</h1><br>
 
      {% for e in users %}
-    <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}.</h5>
+    <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}.</h5>
     <a class="btn btn-info btn-sm" href="{% url 'user-detail' e.id %}"><span class="glyphicon glyphicon-eye">batafsil</span></a>
     <a class="btn btn-danger btn-sm" href="{% url 'delete-user' e.id %}" onclick="return confirm('Ishonchingiz komilmi?')"
 ><span class="glyphicon glyphicon-trash">o'chirish</span></a><hr>
