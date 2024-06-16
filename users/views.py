@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, SignupForm1
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.urls import reverse
@@ -20,14 +20,12 @@ def signup_view(request):
             full_name = form.cleaned_data.get('full_name')
             birth_day = form.cleaned_data.get('birth_day')
             phone = form.cleaned_data.get('phone')
-            gender = form.cleaned_data.get('gender')
             address = form.cleaned_data.get('address')
 
             user = CustomUser.objects.create_user(
                 full_name=full_name,
                 birth_day=birth_day,
                 phone=phone,
-                gender=gender,
                 address=address,
             )
             login(request, user)
@@ -37,6 +35,28 @@ def signup_view(request):
 
     return render(request, 'signup.html', {'form': form})
 
+
+def signup_view1(request):
+    if request.method == 'POST':
+        form = SignupForm1(request.POST)
+        if form.is_valid():
+            full_name = form.cleaned_data.get('full_name')
+            birth_day = form.cleaned_data.get('birth_day')
+            phone = form.cleaned_data.get('phone')
+            address = form.cleaned_data.get('address')
+
+            user = CustomUser.objects.create_user(
+                full_name=full_name,
+                birth_day=birth_day,
+                phone=phone,
+                address=address,
+            )
+            login(request, user)
+            return redirect('success')
+    else:
+        form = SignupForm1()
+
+    return render(request, 'signup1.html', {'form': form})
 
 def login_admin(request):
     if request.method == 'POST':
@@ -80,9 +100,14 @@ def is_staff_user(user):
 def table_user(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
-    users = CustomUser.objects.filter(is_staff=False)
+    users = CustomUser.objects.filter(is_staff=False, birth_day__lte=15)
     return render(request, 'table_user.html', {'users': users})
 
+def table_user1(request):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
+    users = CustomUser.objects.filter(is_staff=False, birth_day__gte=15)
+    return render(request, 'table_user1.html', {'users': users})
 
 def delete_user(request, user_id):
     if not request.user.is_authenticated or not request.user.is_staff:

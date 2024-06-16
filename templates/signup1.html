@@ -31,7 +31,7 @@
   </div>
   <div class="form-group col-md-6">
     <label for="birth_day">Yoshingiz</label>
-    {% render_field form.birth_day|attr:'required:true'  class="form-control" placeholder="15" %}
+    {% render_field form.birth_day|attr:'required:true'  class="form-control" placeholder="25" %}
   </div>
 </div>
 
@@ -42,7 +42,6 @@
       {% render_field form.phone|attr:'required:true'  class="form-control" placeholder="904442033" %}
     </div>
 
-
     <div class="form-group col-md-6">
       <label for="address">Manzilingiz</label>
       {% render_field form.address|attr:'required:true' class="form-control" placeholder="Guliston tumani" %}
@@ -51,8 +50,7 @@
 
 
 <button type="submit" class="btn btn-primary">Ro'yhatdan o'tish</button>
-    <a href="/" class="btn btn-danger">ortga qaytish</a>
-
+<a href="/" class="btn btn-danger">ortga qaytish</a>
 <!-- Display validation errors for userForm -->
 {% if form.errors %}
 <div class="alert alert-danger mt-3">

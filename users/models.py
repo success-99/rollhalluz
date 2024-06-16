@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, full_name, birth_day, phone, gender, address, password=None, **extra_fields):
+    def create_user(self, full_name, birth_day, phone, address, password=None, **extra_fields):
         if not full_name:
             raise ValueError('The Full Name field must be set')
         if not phone:
@@ -13,7 +13,6 @@ class CustomUserManager(BaseUserManager):
             full_name=full_name,
             birth_day=birth_day,
             phone=phone,
-            gender=gender,
             address=address,
             **extra_fields
         )
@@ -21,7 +20,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, full_name, birth_day, phone, gender, address, password=None, **extra_fields):
+    def create_superuser(self, full_name, birth_day, phone, address, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -30,18 +29,13 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(full_name, birth_day, phone, gender, address, password, **extra_fields)
+        return self.create_user(full_name, birth_day, phone, address, password, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    GENDER_CHOICES = [
-        ("o'g'il bola", "o'g'il bola"),
-        ("qiz bola", "qiz bola"),
-    ]
     full_name = models.CharField(max_length=255, unique=True)
     birth_day = models.IntegerField()
     phone = models.CharField(max_length=9, unique=True)
-    gender = models.CharField(choices=GENDER_CHOICES)
     address = models.CharField(max_length=255)
 
     is_active = models.BooleanField(default=True)
@@ -51,7 +45,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'full_name'
-    REQUIRED_FIELDS = ['birth_day', 'phone', 'gender', 'address']
+    REQUIRED_FIELDS = ['birth_day', 'phone', 'address']
 
     def __str__(self):
         return self.full_name

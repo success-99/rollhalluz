@@ -18,10 +18,17 @@
     <p><strong>Ismi:</strong> {{ user.full_name }}</p>
     <p><strong>Telefon:</strong> {{ user.phone }}</p>
     <p><strong>Yoshi:</strong> {{ user.birth_day }}</p>
-    <p><strong>Jinsi:</strong> {{ user.gender }}</p>
     <p><strong>Manzili:</strong> {{ user.address }}</p>
 
-    <p><a href="{% url 'table-users' %}" class="btn btn-primary">Orqaga qaytish</a></p>
+<!--    <p><a href="{% url 'table-users' %}" class="btn btn-primary">Orqaga qaytish</a></p>-->
+    <button id="backButton" class="btn btn-primary">Ortga Qaytish</button>
+
 </div>
+ <script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
 </body>
+
 </html>
