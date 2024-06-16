@@ -16,7 +16,8 @@
 
 <body>
 <div class="container">
-    <h1>Ro'yhatdan o'tganlar!!!</h1><br>
+    <h1>Ro'yhatdan o'tganlar!</h1>
+    <h3>Kichik yoshlilar.</h3><br>
 
      {% for e in users %}
     <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}} Yoshi: {{e.birth_day}}</h5>
