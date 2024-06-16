@@ -67,5 +67,20 @@
 </div>
 {% endif %}
 </form>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var phoneInput = document.getElementById('id_phone');
+
+            phoneInput.addEventListener('keypress', function(event) {
+                if (event.which === 32 || event.keyCode === 32) {
+                    event.preventDefault();
+                }
+            });
+
+            phoneInput.addEventListener('input', function(event) {
+                this.value = this.value.replace(/\s/g, '');
+            });
+        });
+    </script>
 </body>
 </html>
