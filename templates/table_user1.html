@@ -22,13 +22,13 @@
      {% for e in users %}
     <h5>{{ forloop.counter }}. Ismi: {{e.full_name}}, Telefon: {{e.phone}}, Yoshi: {{e.birth_day}}</h5>
     <a class="btn btn-info btn-sm" href="{% url 'user-detail' e.id %}"><span class="glyphicon glyphicon-eye">batafsil</span></a>
-    <a class="btn btn-danger btn-sm" href="{% url 'delete-user' e.id %}" onclick="return confirm('Ishonchingiz komilmi?')"
+    <a class="btn btn-danger btn-sm" href="{% url 'delete-user1' e.id %}" onclick="return confirm('Ishonchingiz komilmi?')"
 ><span class="glyphicon glyphicon-trash">o'chirish</span></a><hr>
 
     {% endfor %}
 
     <a href="/" class="btn btn-primary">Ortga qaytish</a>
-      <a href="{% url 'table-users' %}" class="btn btn-warning">Kichiklar ro'yxati</a>
+      <a href="{% url 'table-users' %}" class="btn btn-warning">Kichiklar ro'yxati</a><br>
 
 </div>
 </body>

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from users.views import home, signup_view, success, table_user, login_admin, delete_user, user_detail, signup_view1, table_user1
+from users.views import home, signup_view, success, table_user,\
+    login_admin, delete_user, user_detail, signup_view1, table_user1, delete_user1
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -14,6 +15,8 @@ urlpatterns = [
     path('list1/', table_user1, name='table-users1'),
     path('javohir/', login_admin, name='login-admin'),
     path('users/delete/<int:user_id>/', delete_user, name='delete-user'),
+    path('users/delete1/<int:user_id>/', delete_user1, name='delete-user1'),
+
     path('users/detail/<int:user_id>/', user_detail, name='user-detail'),
 
 ]

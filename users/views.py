@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser
 from .forms import SignupForm, LoginForm, SignupForm1
@@ -58,6 +58,7 @@ def signup_view1(request):
 
     return render(request, 'signup1.html', {'form': form})
 
+
 def login_admin(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -103,11 +104,13 @@ def table_user(request):
     users = CustomUser.objects.filter(is_staff=False, birth_day__lte=15)
     return render(request, 'table_user.html', {'users': users})
 
+
 def table_user1(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
     users = CustomUser.objects.filter(is_staff=False, birth_day__gte=15)
     return render(request, 'table_user1.html', {'users': users})
+
 
 def delete_user(request, user_id):
     if not request.user.is_authenticated or not request.user.is_staff:
@@ -118,6 +121,17 @@ def delete_user(request, user_id):
     messages.success(request, f"Foydalanuvchi {user.full_name} muvaffaqiyatli o'chirildi.")
 
     return HttpResponseRedirect(reverse('table-users'))
+
+def delete_user1(request, user_id):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
+
+    user = get_object_or_404(CustomUser, id=user_id)
+    user.delete()
+    messages.success(request, f"Foydalanuvchi {user.full_name} muvaffaqiyatli o'chirildi.")
+
+    return HttpResponseRedirect(reverse('table-users1'))
+
 
 
 def user_detail(request, user_id):
