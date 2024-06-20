@@ -101,14 +101,14 @@ def is_staff_user(user):
 def table_user(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
-    users = CustomUser.objects.filter(is_staff=False, birth_day__lte=15)
+    users = CustomUser.objects.filter(is_staff=False, birth_day__lte=15).order_by('full_name')
     return render(request, 'table_user.html', {'users': users})
 
 
 def table_user1(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return HttpResponseForbidden("Sizga bu sahifani ko'rish huquqi berilmagan.")
-    users = CustomUser.objects.filter(is_staff=False, birth_day__gte=15)
+    users = CustomUser.objects.filter(is_staff=False, birth_day__gte=15).order_by('full_name')
     return render(request, 'table_user1.html', {'users': users})
 
 

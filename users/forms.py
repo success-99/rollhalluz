@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -14,13 +16,15 @@ def validate_numeric(value):
         raise ValidationError("Telefon nomer raqamlardan iborat bo'lsin.")
 
 
-def validate_string(value):
-    if not value.isalpha():
-        raise ValidationError("Familiya va Ismingiz harflardan iborat bo'lsin.")
+
+def validate_full_name(value):
+    # Faqat harflar va bitta bo'sh joydan iborat bo'lishini tekshiring
+    if not re.match(r'^[A-Za-z]+\s[A-Za-z]+$', value):
+        raise ValidationError('Familiya va Ismingiz faqat harflar va bitta bo\'sh joydan iborat bo\'lishi kerak.')
 
 
 class SignupForm(forms.Form):
-    full_name = forms.CharField(max_length=255, required=True, validators=[validate_string])
+    full_name = forms.CharField(max_length=255, required=True, validators=[validate_full_name])
     birth_day = forms.IntegerField(min_value=7, max_value=15)
     phone = forms.CharField(min_length=9, max_length=9, required=True, validators=[validate_numeric], error_messages={
         'min_length': 'Telefon raqam kamida 9 ta belgidan iboratligiga ishonch hosil qiling.',
@@ -44,7 +48,7 @@ class SignupForm(forms.Form):
 
 
 class SignupForm1(forms.Form):
-    full_name = forms.CharField(max_length=255, required=True, validators=[validate_string])
+    full_name = forms.CharField(max_length=255, required=True, validators=[validate_full_name])
     birth_day = forms.IntegerField(min_value=16, max_value=70)
     phone = forms.CharField(min_length=9, max_length=9, required=True, validators=[validate_numeric], error_messages={
         'min_length': 'Telefon raqam kamida 9 ta belgidan iboratligiga ishonch hosil qiling.',
